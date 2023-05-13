@@ -1,4 +1,4 @@
-import { Chain } from '../types'
+import { type Chain } from '../types.js'
 
 export const skaleHumanProtocol = {
   id: 1_273_227_453,

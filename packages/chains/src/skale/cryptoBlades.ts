@@ -1,4 +1,4 @@
-import { Chain } from '../types'
+import { type Chain } from '../types.js'
 
 export const skaleCryptoBlades = {
   id: 1_026_062_157,

@@ -1,4 +1,4 @@
-import { Chain } from './types'
+import { type Chain } from './types.js'
 
 export const harmonyOne = {
   id: 1_666_600_000,

@@ -1,4 +1,4 @@
-import { Chain } from './types'
+import { type Chain } from './types.js'
 
 export const polygonMumbai = {
   id: 80_001,

@@ -1,4 +1,4 @@
-import { Chain } from './types'
+import { type Chain } from './types.js'
 
 export const dogechain = {
   id: 2_000,

@@ -1,4 +1,4 @@
-import { Chain } from './types'
+import { type Chain } from './types.js'
 
 export const filecoinCalibration: Chain = {
   id: 314_159,
