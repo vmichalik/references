@@ -22,7 +22,7 @@ export type Chain = {
   }
   /** Collection of block explorers */
   blockExplorers?: {
-    [key: string]: BlockExplorer
+    [_key: string]: BlockExplorer
     default: BlockExplorer
   }
   /** Collection of contracts */
