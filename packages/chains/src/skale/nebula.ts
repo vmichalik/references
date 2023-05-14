@@ -1,4 +1,4 @@
-import { type Chain } from '../types.js'
+import { type Chain } from '@wagmi/core'
 
 export const skaleNebula = {
   id: 1_482_601_649,

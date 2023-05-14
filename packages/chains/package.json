@@ -36,12 +36,16 @@
     "./package.json": "./package.json"
   },
   "peerDependencies": {
+    "@wagmi/core": "workspace:*",
     "typescript": ">=5.0.4"
   },
   "peerDependenciesMeta": {
     "typescript": {
       "optional": true
     }
+  },
+  "devDependencies": {
+    "@wagmi/core": "workspace:*"
   },
   "contributors": ["jxom.eth <j@wagmi.sh>", "awkweb.eth <t@wagmi.sh>"],
   "funding": [

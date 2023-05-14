@@ -1,5 +1,3 @@
-export type { Chain } from './types.js'
-
 export { arbitrum } from './arbitrum.js'
 export { arbitrumGoerli } from './arbitrumGoerli.js'
 export { arbitrumNova } from './arbitrumNova.js'

@@ -1,4 +1,4 @@
-import { type Chain } from '../types.js'
+import { type Chain } from '@wagmi/core'
 
 export const skaleBlockBrawlers = {
   id: 391_845_894,

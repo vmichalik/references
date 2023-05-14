@@ -1,4 +1,4 @@
-import { type Chain } from './types.js'
+import { type Chain } from '@wagmi/core'
 
 export const neonDevnet = {
   id: 245_022_926,

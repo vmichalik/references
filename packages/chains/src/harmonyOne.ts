@@ -1,4 +1,4 @@
-import { type Chain } from './types.js'
+import { type Chain } from '@wagmi/core'
 
 export const harmonyOne = {
   id: 1_666_600_000,

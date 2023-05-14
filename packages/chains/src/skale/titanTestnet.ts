@@ -1,4 +1,4 @@
-import { type Chain } from '../types.js'
+import { type Chain } from '@wagmi/core'
 
 export const skaleTitanTestnet = {
   id: 1_517_929_550,

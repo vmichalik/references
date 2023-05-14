@@ -1,4 +1,4 @@
-import { type Chain } from './types.js'
+import { type Chain } from '@wagmi/core'
 
 export const avalancheFuji = {
   id: 43_113,
