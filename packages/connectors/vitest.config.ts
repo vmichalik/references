@@ -4,5 +4,6 @@ import { defineProject } from 'vitest/config'
 export default defineProject({
   test: {
     name: '@wagmi/connectors',
+    environment: 'jsdom',
   },
 })

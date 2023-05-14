@@ -1,7 +1,7 @@
 import {
   ChainNotConfiguredError,
-  ConnectorNotFoundError,
   type Prettify,
+  ProviderNotFoundError,
   createConnector,
   normalizeChainId,
 } from '@wagmi/core'
@@ -31,7 +31,10 @@ export type InjectedParameters = {
   /**
    * [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193) Ethereum Provider to target
    */
-  wallet?: WalletId | (() => (WalletMap[WalletId] & { id: string }) | undefined)
+  wallet?:
+    | WalletId
+    | (() => (WalletMap[WalletId] & { id: string }) | undefined)
+    | undefined
 }
 
 const walletMap = {
@@ -134,7 +137,7 @@ export function injected(parameters: InjectedParameters = {}) {
     },
     async connect({ chainId } = {}) {
       const provider = await this.getProvider()
-      if (!provider) throw new ConnectorNotFoundError()
+      if (!provider) throw new ProviderNotFoundError()
 
       try {
         // Attempt to show wallet select prompt with `wallet_requestPermissions` when
@@ -206,7 +209,7 @@ export function injected(parameters: InjectedParameters = {}) {
     },
     async disconnect() {
       const provider = await this.getProvider()
-      if (!provider) throw new ConnectorNotFoundError()
+      if (!provider) throw new ProviderNotFoundError()
 
       provider.removeListener(
         'accountsChanged',
@@ -222,7 +225,7 @@ export function injected(parameters: InjectedParameters = {}) {
     },
     async getAccounts() {
       const provider = await this.getProvider()
-      if (!provider) throw new ConnectorNotFoundError()
+      if (!provider) throw new ProviderNotFoundError()
       const accounts = await provider.request({ method: 'eth_accounts' })
       return accounts.map(getAddress)
     },
@@ -234,7 +237,7 @@ export function injected(parameters: InjectedParameters = {}) {
     },
     async getChainId() {
       const provider = await this.getProvider()
-      if (!provider) throw new ConnectorNotFoundError()
+      if (!provider) throw new ProviderNotFoundError()
       const hexChainId = await provider.request({ method: 'eth_chainId' })
       return fromHex(hexChainId, 'number')
     },
@@ -280,7 +283,7 @@ export function injected(parameters: InjectedParameters = {}) {
             if (res) return true
           }
 
-          throw new ConnectorNotFoundError()
+          throw new ProviderNotFoundError()
         }
         const accounts = await this.getAccounts()
         return !!accounts.length
@@ -290,7 +293,7 @@ export function injected(parameters: InjectedParameters = {}) {
     },
     async switchChain({ chainId }) {
       const provider = await this.getProvider()
-      if (!provider) throw new ConnectorNotFoundError()
+      if (!provider) throw new ProviderNotFoundError()
       const id = numberToHex(chainId)
       const chain = config.chains.find((x) => x.id === chainId)
 
@@ -431,7 +434,7 @@ export function injected(parameters: InjectedParameters = {}) {
   }))
 }
 
-type WalletId = 'coinbaseWallet' | 'metaMask' | 'phantom' | 'rainbow'
+export type WalletId = 'coinbaseWallet' | 'metaMask' | 'phantom' | 'rainbow'
 type Wallet = {
   name: string
   provider:

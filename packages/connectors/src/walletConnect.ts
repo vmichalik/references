@@ -1,5 +1,6 @@
 import {
   ChainNotConfiguredError,
+  ProviderNotFoundError,
   createConnector,
   normalizeChainId,
 } from '@wagmi/core'
@@ -111,6 +112,10 @@ export function walletConnect(parameters: WalletConnectParameters) {
     },
     async connect({ chainId, ...rest } = {}) {
       try {
+        const provider = await this.getProvider()
+        if (!provider) throw new ProviderNotFoundError()
+        provider.on('display_uri', this.onDisplayUri)
+
         let targetChainId = chainId
         if (!targetChainId) {
           const state = config.storage?.getItem('state') ?? {}
@@ -120,9 +125,6 @@ export function walletConnect(parameters: WalletConnectParameters) {
           else targetChainId = config.chains[0]?.id
         }
         if (!targetChainId) throw new Error('No chains found on connector.')
-
-        const provider = await this.getProvider()
-        provider.on('display_uri', this.onDisplayUri)
 
         const isChainsStale = this.isChainsStale()
         // If there is an active session with stale chains, disconnect current session.
@@ -222,8 +224,7 @@ export function walletConnect(parameters: WalletConnectParameters) {
       }
 
       if (!provider_) {
-        if (!providerPromise && typeof window !== 'undefined')
-          providerPromise = initProvider()
+        if (!providerPromise) providerPromise = initProvider()
         provider_ = await providerPromise
       }
       if (chainId) await this.switchChain?.({ chainId })
@@ -330,7 +331,6 @@ export function walletConnect(parameters: WalletConnectParameters) {
       config.emitter.emit('message', { type: 'display_uri', data: uri })
     },
     onSessionDelete() {
-      console.log('onSessionDelete')
       this.onDisconnect()
     },
     getNamespaceChainsIds() {
