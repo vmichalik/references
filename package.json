@@ -8,16 +8,18 @@
     "lint:fix": "pnpm lint --apply",
     "preinstall": "npx only-allow pnpm",
     "prepare": "npx simple-git-hooks",
-    "test": "pnpm run --recursive --filter \"./packages/*\" --filter \"./references/packages/*\" test",
-    "test:coverage": "pnpm run --recursive --filter \"./packages/*\" --filter \"./references/packages/*\" test:coverage",
+    "test": "vitest",
+    "test:coverage": "vitest --coverage",
     "typecheck": "pnpm run --recursive --parallel typecheck"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^0.4.8",
     "@changesets/cli": "^2.26.0",
+    "@types/fs-extra": "^9.0.13",
     "@types/node": "^18.11.18",
-    "@vitest/coverage-c8": "^0.25.8",
-    "@vitest/ui": "^0.25.8",
+    "@vitest/coverage-c8": "^0.31.0",
+    "@vitest/ui": "^0.31.0",
+    "@wagmi/core": "^1.0.2",
     "bun": "^0.5.5",
     "fs-extra": "^11.1.0",
     "jsdom": "^20.0.3",
@@ -26,7 +28,7 @@
     "rome": "^12.1.0",
     "simple-git-hooks": "^2.8.1",
     "typescript": "^5.0.4",
-    "vitest": "^0.25.8"
+    "vitest": "^0.31.0"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm format && pnpm lint:fix"

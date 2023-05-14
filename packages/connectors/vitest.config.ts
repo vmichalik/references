@@ -1,12 +1,14 @@
-import { defineConfig } from 'vitest/config'
+import path from 'path'
+import { defineProject } from 'vitest/config'
 
-export default defineConfig({
-  envDir: '../../',
-  test: {
-    globalSetup: ['./tests/setup/globalSetup.ts'],
-    coverage: {
-      reporter: process.env.CI ? ['lcov'] : ['text', 'json', 'html'],
-      exclude: ['**/dist/**', '**/tests/**', '**/*.test.ts'],
+// https://vitest.dev/config/
+export default defineProject({
+  resolve: {
+    alias: {
+      '@wagmi/core': path.resolve(__dirname, '../../../packages/core/src'),
     },
+  },
+  test: {
+    name: '@wagmi/connectors',
   },
 })
