@@ -1,9 +1,9 @@
 import { expect, test } from 'vitest'
 
-import * as exports from './index.js'
+import * as chains from './index.js'
 
 test('exports', () => {
-  expect(Object.keys(exports)).toMatchInlineSnapshot(`
+  expect(Object.keys(chains)).toMatchInlineSnapshot(`
     [
       "arbitrum",
       "arbitrumGoerli",

@@ -36,10 +36,6 @@
     ],
 
     // Skip type checking for node modules
-    "skipLibCheck": true,
-
-    "paths": {
-      "@wagmi/core": ["../packages/core/src/index.ts"]
-    }
+    "skipLibCheck": true
   }
 }

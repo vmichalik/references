@@ -1,9 +1,9 @@
 import { expect, test } from 'vitest'
 
-import * as exports from './index.js'
+import * as connectors from './index.js'
 
 test('exports', () => {
-  expect(exports).toMatchInlineSnapshot(`
+  expect(connectors).toMatchInlineSnapshot(`
     {
       "injected": [Function],
       "walletConnect": [Function],
