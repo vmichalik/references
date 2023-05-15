@@ -385,6 +385,14 @@ export function injected(parameters: InjectedParameters = {}) {
       config.emitter.emit('change', { chainId })
     },
     async onConnect(connectInfo) {
+      // If `connect` event fires and wallet is explicitly disconnected, ignore.
+      if (
+        shimDisconnect &&
+        // If shim does not exist in storage, wallet is disconnected
+        !config.storage?.getItem(this.shimDisconnectStorageKey)
+      )
+        return
+
       const accounts = await this.getAccounts()
       if (accounts.length === 0) return
 
@@ -412,6 +420,9 @@ export function injected(parameters: InjectedParameters = {}) {
         if (provider && !!(await this.getAccounts()).length) return
       }
 
+      // No need to remove `shimDisconnectStorageKey` from storage because `onDisconnect` is typically
+      // only called when the wallet is disconnected through the wallet's interface, meaning the wallet
+      // actually disconnected and we don't need to simulate it.
       config.emitter.emit('disconnect')
 
       if (provider) {
@@ -423,10 +434,6 @@ export function injected(parameters: InjectedParameters = {}) {
         provider.removeListener('disconnect', this.onDisconnect.bind(this))
         provider.on('connect', this.onConnect.bind(this))
       }
-
-      // Remove shim signalling wallet is disconnected
-      if (shimDisconnect)
-        config.storage?.removeItem(this.shimDisconnectStorageKey)
     },
     get shimDisconnectStorageKey() {
       return `${this.id}.shimDisconnect`
