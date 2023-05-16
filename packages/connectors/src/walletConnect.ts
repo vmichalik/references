@@ -119,9 +119,8 @@ export function walletConnect(parameters: WalletConnectParameters) {
         let targetChainId = chainId
         if (!targetChainId) {
           const state = config.storage?.getItem('state') ?? {}
-          const recentChainId = state.connections?.get(state.current!)?.chainId
-          if (config.chains.some((x) => x.id === recentChainId))
-            targetChainId = recentChainId
+          if (config.chains.some((x) => x.id === state.chainId))
+            targetChainId = state.chainId
           else targetChainId = config.chains[0]?.id
         }
         if (!targetChainId) throw new Error('No chains found on connector.')
