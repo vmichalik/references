@@ -34,5 +34,11 @@
   "simple-git-hooks": {
     "pre-commit": "pnpm format && pnpm lint:fix"
   },
-  "packageManager": "pnpm@8.3.1"
+  "packageManager": "pnpm@8.3.1",
+  "pnpm": {
+    "patchedDependencies": {
+      "@walletconnect/ethereum-provider@2.7.2": "patches/@walletconnect__ethereum-provider@2.7.2.patch",
+      "@web3modal/standalone@2.4.1": "patches/@web3modal__standalone@2.4.1.patch"
+    }
+  }
 }

@@ -230,6 +230,7 @@ export function injected(parameters: InjectedParameters = {}) {
       return accounts.map(getAddress)
     },
     async getProvider() {
+      if (typeof window === 'undefined') return undefined
       const windowProvider = getWindowProvider()
       if (typeof windowProvider.provider === 'function')
         return windowProvider.provider(window as Window | undefined)
@@ -260,7 +261,11 @@ export function injected(parameters: InjectedParameters = {}) {
             // https://github.com/wagmi-dev/references/issues/167
             // https://github.com/MetaMask/detect-provider
             const handleEthereum = async () => {
-              window.removeEventListener('ethereum#initialized', handleEthereum)
+              if (typeof window !== 'undefined')
+                window.removeEventListener(
+                  'ethereum#initialized',
+                  handleEthereum,
+                )
               const provider = await this.getProvider()
               return !!provider
             }
@@ -269,13 +274,17 @@ export function injected(parameters: InjectedParameters = {}) {
                 ? unstable_shimAsyncInject
                 : 1_000
             const res = await Promise.race([
-              new Promise<boolean>((resolve) =>
-                window.addEventListener(
-                  'ethereum#initialized',
-                  () => resolve(handleEthereum()),
-                  { once: true },
-                ),
-              ),
+              ...(typeof window !== 'undefined'
+                ? [
+                    new Promise<boolean>((resolve) =>
+                      window.addEventListener(
+                        'ethereum#initialized',
+                        () => resolve(handleEthereum()),
+                        { once: true },
+                      ),
+                    ),
+                  ]
+                : []),
               new Promise<boolean>((resolve) =>
                 setTimeout(() => resolve(handleEthereum()), timeout),
               ),

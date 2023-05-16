@@ -1,5 +1,13 @@
 lockfileVersion: '6.0'
 
+patchedDependencies:
+  '@walletconnect/ethereum-provider@2.7.2':
+    hash: d2e6fs45gcpivejxywrl54asvy
+    path: patches/@walletconnect__ethereum-provider@2.7.2.patch
+  '@web3modal/standalone@2.4.1':
+    hash: 3feurzjirxgilbrws7ud4fzboy
+    path: patches/@web3modal__standalone@2.4.1.patch
+
 importers:
 
   .:
@@ -48,23 +56,23 @@ importers:
     devDependencies:
       '@wagmi/core':
         specifier: ~1.0.2
-        version: link:../../../packages/core
+        version: 1.0.2(typescript@5.0.4)
 
   packages/connectors:
     dependencies:
       '@walletconnect/ethereum-provider':
         specifier: ^2.7.2
-        version: 2.7.2(@web3modal/standalone@2.4.1)(lokijs@1.5.12)
+        version: 2.7.2(patch_hash=d2e6fs45gcpivejxywrl54asvy)(@web3modal/standalone@2.4.1)(lokijs@1.5.12)
       '@web3modal/standalone':
         specifier: ^2.4.1
-        version: 2.4.1
+        version: 2.4.1(patch_hash=3feurzjirxgilbrws7ud4fzboy)
     devDependencies:
       '@wagmi/chains':
         specifier: workspace:*
         version: link:../chains
       '@wagmi/core':
         specifier: ~1.0.2
-        version: link:../../../packages/core
+        version: 1.0.2(typescript@5.0.4)
       lokijs:
         specifier: ^1.5.12
         version: 1.5.12
@@ -1028,6 +1036,38 @@ packages:
       pretty-format: 27.5.1
     dev: true
 
+  /@wagmi/chains@0.2.22(typescript@5.0.4):
+    resolution: {integrity: sha512-TdiOzJT6TO1JrztRNjTA5Quz+UmQlbvWFG8N41u9tta0boHA1JCAzGGvU6KuIcOmJfRJkKOUIt67wlbopCpVHg==}
+    peerDependencies:
+      typescript: '>=4.9.4'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      typescript: 5.0.4
+    dev: true
+
+  /@wagmi/core@1.0.2(typescript@5.0.4):
+    resolution: {integrity: sha512-3MCmaah7zdpt/eA6AlxNsL/2BV+6jhi4CMO20vHsSGPyxCPrvDguY9fn6tUMMmhwnFXhSAEHDhXNlZBPVl1tog==}
+    peerDependencies:
+      typescript: '>=4.9.4'
+      viem: ~0.3.18
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      '@wagmi/chains': 0.2.22(typescript@5.0.4)
+      '@wagmi/connectors': link:packages/connectors
+      abitype: 0.8.1(typescript@5.0.4)
+      eventemitter3: 4.0.7
+      typescript: 5.0.4
+      zustand: 4.3.8
+    transitivePeerDependencies:
+      - immer
+      - react
+      - zod
+    dev: true
+
   /@walletconnect/core@2.7.2(lokijs@1.5.12):
     resolution: {integrity: sha512-gInSwh3uLpTEkDGArfOFoOVgiXW+zkZJpGqfARVi5fhSxsnL1jYNpqO2k8KAXUPfB4MIzLyaGruiaywncLAczA==}
     dependencies:
@@ -1059,7 +1099,7 @@ packages:
       tslib: 1.14.1
     dev: false
 
-  /@walletconnect/ethereum-provider@2.7.2(@web3modal/standalone@2.4.1)(lokijs@1.5.12):
+  /@walletconnect/ethereum-provider@2.7.2(patch_hash=d2e6fs45gcpivejxywrl54asvy)(@web3modal/standalone@2.4.1)(lokijs@1.5.12):
     resolution: {integrity: sha512-bvmutLrKKLlQ1WxKCvvX5p5YVox1D1f3Enp6hzAiZf4taN+n/M5rmwfAcLgLhp4cTAUDhl3zgtZErzDyJnvGvQ==}
     peerDependencies:
       '@web3modal/standalone': '>=2'
@@ -1075,7 +1115,7 @@ packages:
       '@walletconnect/types': 2.7.2(lokijs@1.5.12)
       '@walletconnect/universal-provider': 2.7.2(lokijs@1.5.12)
       '@walletconnect/utils': 2.7.2(lokijs@1.5.12)
-      '@web3modal/standalone': 2.4.1
+      '@web3modal/standalone': 2.4.1(patch_hash=3feurzjirxgilbrws7ud4fzboy)
       events: 3.3.0
     transitivePeerDependencies:
       - '@react-native-async-storage/async-storage'
@@ -1085,6 +1125,7 @@ packages:
       - lokijs
       - utf-8-validate
     dev: false
+    patched: true
 
   /@walletconnect/events@1.0.1:
     resolution: {integrity: sha512-NPTqaoi0oPBVNuLv7qPaJazmGHs5JGyO8eEAk5VGKmJzDR7AHzD4k6ilox5kxk1iwiOnFopBOOMLs86Oa76HpQ==}
@@ -1301,7 +1342,7 @@ packages:
       - react
     dev: false
 
-  /@web3modal/standalone@2.4.1:
+  /@web3modal/standalone@2.4.1(patch_hash=3feurzjirxgilbrws7ud4fzboy):
     resolution: {integrity: sha512-ZrI5LwWeT9sd8A3FdIX/gBp3ZrzrX882Ln1vJN0LTCmeP2OUsYcW5bPxjv1PcJ1YUBY7Tg4aTgMUnAVTTuqb+w==}
     dependencies:
       '@web3modal/core': 2.4.1
@@ -1309,6 +1350,7 @@ packages:
     transitivePeerDependencies:
       - react
     dev: false
+    patched: true
 
   /@web3modal/ui@2.4.1:
     resolution: {integrity: sha512-x1ceyd3mMJsIHs5UUTLvE+6qyCjhyjL6gB/wVmTDbwASHSQIVyshQJ+s7BwIEMP/pbAsYDg+/M8EiUuE+/E/kg==}
@@ -1334,6 +1376,18 @@ packages:
 
   /abab@2.0.6:
     resolution: {integrity: sha512-j2afSsaIENvHZN2B8GOpF566vZ5WVk5opAiMTvWgaQT8DkbOqsTfvNAvHoRGU2zzP8cPoqys+xHTRDWW8L+/BA==}
+    dev: true
+
+  /abitype@0.8.1(typescript@5.0.4):
+    resolution: {integrity: sha512-n8Di6AWb3i7HnEkBvecU6pG0a5nj5YwMvdAIwPLsQK95ulRy/XS113s/RXvSfTX1iOQJYFrEO3/q4SMWu7OwTA==}
+    peerDependencies:
+      typescript: '>=4.9.4'
+      zod: ^3 >=3.19.1
+    peerDependenciesMeta:
+      zod:
+        optional: true
+    dependencies:
+      typescript: 5.0.4
     dev: true
 
   /acorn-globals@7.0.1:
@@ -2081,6 +2135,10 @@ packages:
   /esutils@2.0.3:
     resolution: {integrity: sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g==}
     engines: {node: '>=0.10.0'}
+    dev: true
+
+  /eventemitter3@4.0.7:
+    resolution: {integrity: sha512-8guHBZCwKnFhYdHr2ysuRWErTwhoN2X8XELRlrRwpmfeY2jjuUN4taQMsULKUVo1K4DvZl+0pgfyoysHxvmvEw==}
     dev: true
 
   /events@3.3.0:
@@ -4134,7 +4192,6 @@ packages:
     resolution: {integrity: sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
-    dev: false
 
   /util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
@@ -4559,4 +4616,19 @@ packages:
   /yocto-queue@1.0.0:
     resolution: {integrity: sha512-9bnSc/HEW2uRy67wc+T8UwauLuPJVn28jb+GtJY16iiKWyvmYJRXVT4UamsAEGQfPohgr2q4Tq0sQbQlxTfi1g==}
     engines: {node: '>=12.20'}
+    dev: true
+
+  /zustand@4.3.8:
+    resolution: {integrity: sha512-4h28KCkHg5ii/wcFFJ5Fp+k1J3gJoasaIbppdgZFO4BPJnsNxL0mQXBSFgOgAdCdBj35aDTPvdAJReTMntFPGg==}
+    engines: {node: '>=12.7.0'}
+    peerDependencies:
+      immer: '>=9.0'
+      react: '>=16.8'
+    peerDependenciesMeta:
+      immer:
+        optional: true
+      react:
+        optional: true
+    dependencies:
+      use-sync-external-store: 1.2.0
     dev: true

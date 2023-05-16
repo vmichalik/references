@@ -4,19 +4,21 @@ import {
   createConnector,
   normalizeChainId,
 } from '@wagmi/core'
-import { default as EthereumProvider } from '@walletconnect/ethereum-provider'
+import {
+  EthereumProvider,
+  OPTIONAL_EVENTS,
+  OPTIONAL_METHODS,
+} from '@walletconnect/ethereum-provider'
 import {
   type Address,
-  ProviderRpcError,
+  type ProviderRpcError,
   SwitchChainError,
   UserRejectedRequestError,
   getAddress,
   numberToHex,
 } from 'viem'
 
-type EthereumProviderOptions = Parameters<
-  EthereumProvider.default['initialize']
->[0]
+type EthereumProviderOptions = Parameters<EthereumProvider['initialize']>[0]
 
 export type WalletConnectParameters = {
   /**
@@ -78,7 +80,7 @@ export type WalletConnectParameters = {
 export function walletConnect(parameters: WalletConnectParameters) {
   const isNewChainsStale = parameters.isNewChainsStale ?? true
 
-  type Provider = EthereumProvider.default
+  type Provider = EthereumProvider
   type NamespaceMethods =
     | 'wallet_addEthereumChain'
     | 'wallet_switchEthereumChain'
@@ -196,11 +198,6 @@ export function walletConnect(parameters: WalletConnectParameters) {
     },
     async getProvider({ chainId } = {}) {
       async function initProvider() {
-        const {
-          default: EthereumProvider,
-          OPTIONAL_EVENTS,
-          OPTIONAL_METHODS,
-        } = await import('@walletconnect/ethereum-provider')
         const [defaultChain, ...optionalChains] = config.chains.map((x) => x.id)
         if (!defaultChain) return
         return await EthereumProvider.init({
