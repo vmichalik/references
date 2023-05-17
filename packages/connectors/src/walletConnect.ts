@@ -11,6 +11,7 @@ import {
 } from '@walletconnect/ethereum-provider'
 import {
   type Address,
+  type ProviderConnectInfo,
   type ProviderRpcError,
   SwitchChainError,
   UserRejectedRequestError,
@@ -93,6 +94,7 @@ export function walletConnect(parameters: WalletConnectParameters) {
     getNamespaceMethods(): NamespaceMethods[]
     getRequestedChainsIds(): number[]
     isChainsStale(): boolean
+    onConnect(connectInfo: ProviderConnectInfo): void
     onDisplayUri(uri: string): void
     onSessionDelete(data: { topic: string }): void
     setRequestedChainsIds(chains: number[]): void
@@ -124,8 +126,10 @@ export function walletConnect(parameters: WalletConnectParameters) {
         let targetChainId = chainId
         if (!targetChainId) {
           const state = config.storage?.getItem('state') ?? {}
-          if (config.chains.some((x) => x.id === state.chainId))
-            targetChainId = state.chainId
+          const isChainSupported = config.chains.some(
+            (x) => x.id === state.chainId,
+          )
+          if (isChainSupported) targetChainId = state.chainId
           else targetChainId = config.chains[0]?.id
         }
         if (!targetChainId) throw new Error('No chains found on connector.')

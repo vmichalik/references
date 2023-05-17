@@ -8,6 +8,7 @@ import {
 import {
   type Address,
   type EIP1193Provider,
+  type ProviderConnectInfo,
   ProviderRpcError,
   ResourceNotFoundRpcError,
   ResourceUnavailableRpcError,
@@ -118,7 +119,10 @@ export function injected(parameters: InjectedParameters = {}) {
   }
 
   type Provider = WindowProvider | undefined
-  type Properties = { shimDisconnectStorageKey: `${string}.shimDisconnect` }
+  type Properties = {
+    onConnect(connectInfo: ProviderConnectInfo): void
+    shimDisconnectStorageKey: `${string}.shimDisconnect`
+  }
   type StorageItem = { [_ in Properties['shimDisconnectStorageKey']]: true }
 
   return createConnector<Provider, Properties, StorageItem>((config) => ({

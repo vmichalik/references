@@ -3,7 +3,7 @@ import { expect, test } from 'vitest'
 import { config } from '../test/index.js'
 import { type WalletId, injected } from './injected.js'
 
-test('inits', async () => {
+test('setup', () => {
   const connectorFn = injected()
   const connector = config._internal.setup(connectorFn)
   expect(connector.name).toEqual('Injected')

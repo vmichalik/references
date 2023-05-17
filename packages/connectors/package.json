@@ -39,8 +39,8 @@
   },
   "peerDependencies": {
     "@wagmi/core": "~1.0.2",
-    "viem": "0.0.0-portable-types-20230513210020",
-    "typescript": ">=5"
+    "typescript": ">=5",
+    "viem": "0.0.0-portable-types-20230513210020"
   },
   "peerDependenciesMeta": {
     "typescript": {
@@ -48,6 +48,7 @@
     }
   },
   "dependencies": {
+    "@coinbase/wallet-sdk": "^3.6.6",
     "@walletconnect/ethereum-provider": "^2.7.2",
     "@web3modal/standalone": "^2.4.1"
   },
@@ -56,7 +57,10 @@
     "@wagmi/core": "~1.0.2",
     "lokijs": "^1.5.12"
   },
-  "contributors": ["jxom.eth <j@wagmi.sh>", "awkweb.eth <t@wagmi.sh>"],
+  "contributors": [
+    "jxom.eth <j@wagmi.sh>",
+    "awkweb.eth <t@wagmi.sh>"
+  ],
   "funding": [
     {
       "type": "github",
