@@ -8,13 +8,13 @@ async function preconstruct() {
   const isSubmodule = await fs.pathExists('../scripts/preconstruct.ts')
   if (isSubmodule) {
     console.log('In submodule, running `preconstruct` from root.')
-    const subprocess = execa('pnpm', ['preconstruct'], {
+    const onData = (data) => process.stdout.write(data)
+    execa('pnpm', ['preconstruct'], {
       cleanup: true,
       cwd: '../',
-    })
-    subprocess.stdout?.on('data', (data) => {
-      process.stdout.write(data)
-    })
+      env: { SUBMODULE: 'true' },
+    }).stdout?.on('data', onData)
+    execa('pnpm', ['run', 'link'], { cleanup: true }).stdout?.on('data', onData)
   } else {
     console.log('Not in submodule, downloading `@wagmi/core` source.')
     /**
