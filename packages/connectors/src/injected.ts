@@ -100,9 +100,6 @@ export function injected(parameters: InjectedParameters = {}) {
   const shimDisconnect = parameters.shimDisconnect ?? true
   const unstable_shimAsyncInject = parameters.unstable_shimAsyncInject
 
-  type Provider = WindowProvider | undefined
-  type Properties = { shimDisconnectStorageKey: string }
-
   function getWindowProvider(): WalletMap[WalletId] & { id: string } {
     const wallet = parameters.wallet
     if (typeof wallet === 'function') {
@@ -120,7 +117,11 @@ export function injected(parameters: InjectedParameters = {}) {
     }
   }
 
-  return createConnector<Provider, Properties>((config) => ({
+  type Provider = WindowProvider | undefined
+  type Properties = { shimDisconnectStorageKey: `${string}.shimDisconnect` }
+  type StorageItem = { [_ in Properties['shimDisconnectStorageKey']]: true }
+
+  return createConnector<Provider, Properties, StorageItem>((config) => ({
     get id() {
       return getWindowProvider().id
     },
@@ -445,7 +446,7 @@ export function injected(parameters: InjectedParameters = {}) {
       }
     },
     get shimDisconnectStorageKey() {
-      return `${this.id}.shimDisconnect`
+      return `${this.id}.shimDisconnect` as Properties['shimDisconnectStorageKey']
     },
   }))
 }

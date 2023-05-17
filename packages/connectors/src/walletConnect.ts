@@ -96,14 +96,17 @@ export function walletConnect(parameters: WalletConnectParameters) {
     onDisplayUri(uri: string): void
     onSessionDelete(data: { topic: string }): void
     setRequestedChainsIds(chains: number[]): void
-    requestedChainsStorageKey: string
+    requestedChainsStorageKey: `${string}.requestedChains`
+  }
+  type StorageItem = {
+    [_ in Properties['requestedChainsStorageKey']]: number[]
   }
 
   let provider_: Provider | undefined
   let providerPromise: Promise<typeof provider_>
   const NAMESPACE = 'eip155'
 
-  return createConnector<Provider, Properties>((config) => ({
+  return createConnector<Provider, Properties, StorageItem>((config) => ({
     id: 'walletConnect',
     name: 'WalletConnect',
     async setup() {
@@ -387,7 +390,7 @@ export function walletConnect(parameters: WalletConnectParameters) {
       config.storage?.setItem(this.requestedChainsStorageKey, chains)
     },
     get requestedChainsStorageKey() {
-      return `${this.id}.requestedChains`
+      return `${this.id}.requestedChains` as Properties['requestedChainsStorageKey']
     },
   }))
 }
