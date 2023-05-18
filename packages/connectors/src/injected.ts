@@ -1,10 +1,10 @@
 import {
   ChainNotConfiguredError,
-  type Prettify,
   ProviderNotFoundError,
   createConnector,
   normalizeChainId,
 } from '@wagmi/core'
+import type { Prettify } from '@wagmi/core/internal'
 import {
   type Address,
   type EIP1193Provider,

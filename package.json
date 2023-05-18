@@ -16,7 +16,8 @@
     "test:ui": "vitest --ui",
     "test:ui:cov": "vite preview --outDir ./coverage",
     "test:update": "vitest --update",
-    "typecheck": "pnpm run --recursive --parallel typecheck"
+    "typecheck": "pnpm run --recursive --parallel typecheck",
+    "version:update": "pnpm bun scripts/updateVersion.ts"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^0.4.8",

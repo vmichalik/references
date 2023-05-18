@@ -4,11 +4,10 @@ import {
 } from '@coinbase/wallet-sdk'
 import {
   ChainNotConfiguredError,
-  type Mutable,
-  type Prettify,
   createConnector,
   normalizeChainId,
 } from '@wagmi/core'
+import type { Mutable, Prettify } from '@wagmi/core/internal'
 import {
   type ProviderRpcError,
   SwitchChainError,
