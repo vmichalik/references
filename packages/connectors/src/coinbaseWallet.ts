@@ -46,12 +46,11 @@ export function coinbaseWallet(parameters: CoinbaseWalletParameters) {
 
   type Provider = CoinbaseWalletProvider
   type Properties = {}
-  type StorageItem = {}
 
   let sdk: CoinbaseWalletSDK | undefined
   let provider_: Provider | undefined
 
-  return createConnector<Provider, Properties, StorageItem>((config) => ({
+  return createConnector<Provider, Properties>((config) => ({
     id: 'coinbaseWallet',
     name: 'Coinbase Wallet',
     async connect({ chainId } = {}) {

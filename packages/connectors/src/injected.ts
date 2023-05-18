@@ -308,8 +308,10 @@ export function injected(parameters: InjectedParameters = {}) {
     async switchChain({ chainId }) {
       const provider = await this.getProvider()
       if (!provider) throw new ProviderNotFoundError()
+
       const id = numberToHex(chainId)
       const chain = config.chains.find((x) => x.id === chainId)
+      if (!chain) throw new SwitchChainError(new ChainNotConfiguredError())
 
       try {
         await Promise.all([
@@ -323,18 +325,8 @@ export function injected(parameters: InjectedParameters = {}) {
             }),
           ),
         ])
-        return (
-          chain ?? {
-            id: chainId,
-            name: `Chain ${id}`,
-            network: `${id}`,
-            nativeCurrency: { name: 'Ether', decimals: 18, symbol: 'ETH' },
-            rpcUrls: { default: { http: [''] }, public: { http: [''] } },
-          }
-        )
+        return chain
       } catch (error) {
-        if (!chain) throw new ChainNotConfiguredError()
-
         // Indicates chain is not added to provider
         if (
           (error as RpcError).code === 4_902 ||
