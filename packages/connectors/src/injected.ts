@@ -13,7 +13,6 @@ import {
   ResourceNotFoundRpcError,
   ResourceUnavailableRpcError,
   RpcError,
-  type RpcError_,
   SwitchChainError,
   UserRejectedRequestError,
   fromHex,
@@ -169,12 +168,12 @@ export function injected(parameters: InjectedParameters = {}) {
             } catch (error) {
               // Not all injected providers support `wallet_requestPermissions` (e.g. MetaMask iOS).
               // Only bubble up error if user rejects request
-              if ((error as RpcError).code === 4_001)
+              if ((error as ProviderRpcError).code === 4_001)
                 throw new UserRejectedRequestError(error as RpcError)
               // Or wallet is already open
               if (
-                (error as ProviderRpcError).code ===
-                new ResourceNotFoundRpcError(error as ProviderRpcError).code
+                (error as RpcError).code ===
+                new ResourceNotFoundRpcError(error as Error).code
               )
                 throw error
             }
@@ -205,7 +204,7 @@ export function injected(parameters: InjectedParameters = {}) {
 
         return { accounts, chainId: currentChainId }
       } catch (error) {
-        if ((error as RpcError).code === 4_001)
+        if ((error as ProviderRpcError).code === 4_001)
           throw new UserRejectedRequestError(error as RpcError)
         if ((error as RpcError).code === -32_002)
           throw new ResourceUnavailableRpcError(error as RpcError)
@@ -329,7 +328,7 @@ export function injected(parameters: InjectedParameters = {}) {
       } catch (error) {
         // Indicates chain is not added to provider
         if (
-          (error as RpcError).code === 4_902 ||
+          (error as ProviderRpcError).code === 4902 ||
           // Unwrapping for MetaMask Mobile
           // https://github.com/MetaMask/metamask-mobile/issues/2944#issuecomment-976988719
           (error as ProviderRpcError<{ originalError?: { code: number } }>)
@@ -370,7 +369,7 @@ export function injected(parameters: InjectedParameters = {}) {
           }
         }
 
-        if ((error as RpcError).code === 4_001)
+        if ((error as ProviderRpcError).code === 4_001)
           throw new UserRejectedRequestError(error as RpcError)
         throw new SwitchChainError(error as RpcError)
       }
@@ -422,7 +421,7 @@ export function injected(parameters: InjectedParameters = {}) {
 
       // If MetaMask emits a `code: 1013` error, wait for reconnection before disconnecting
       // https://github.com/MetaMask/providers/pull/120
-      if (error && (error as RpcError_).code === 1013) {
+      if (error && (error as RpcError<1013>).code === 1013) {
         if (provider && !!(await this.getAccounts()).length) return
       }
 
