@@ -4,7 +4,7 @@ import {
   createConnector,
   normalizeChainId,
 } from '@wagmi/core'
-import type { Prettify } from '@wagmi/core/internal'
+import type { Pretty } from '@wagmi/core/internal'
 import {
   type Address,
   type EIP1193Provider,
@@ -496,7 +496,7 @@ type WindowProviderFlags = {
   isZerion?: true
 }
 
-type WindowProvider = Prettify<
+type WindowProvider = Pretty<
   EIP1193Provider &
     WindowProviderFlags & {
       providers?: WindowProvider[]

@@ -7,7 +7,7 @@ import {
   createConnector,
   normalizeChainId,
 } from '@wagmi/core'
-import type { Mutable, Prettify } from '@wagmi/core/internal'
+import type { Mutable, Pretty } from '@wagmi/core/internal'
 import {
   type ProviderRpcError,
   SwitchChainError,
@@ -16,7 +16,7 @@ import {
   numberToHex,
 } from 'viem'
 
-export type CoinbaseWalletParameters = Prettify<
+export type CoinbaseWalletParameters = Pretty<
   Mutable<
     Omit<
       ConstructorParameters<typeof CoinbaseWalletSDK>[0],
